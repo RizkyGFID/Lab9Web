@@ -70,3 +70,56 @@ untuk ``` about.php ```, kalian isi berikut
 <?php require('footer.php'); ?>
 ```
 
+Disini ada tugas, yang dimana perlu implementasi konsep modularisasi pada kode program praktikum 8 tentang database
+Sekaligus menerapkan penggunaan routing supaya projek jadi lebih modular
+
+Disini saya harus gunakan struktur direktory ini
+
+<img src="Lab9/Langkah 4.png" alt="Tutorial" width="400">
+
+Jadi disini saya akan membuat folder baru dengan nama project
+
+<img src="Lab9/Langkah 1.png" alt="Tutorial" width="400">
+
+Kemudian sesuaikan isinya dengan direktori diatas, pastikan kalau ada tanda slash / itu adalah folder karena merujuk ke tujuan filenya
+
+<img src="Lab9/Langkah 3.png" alt="Tutorial" width="400">
+
+Kemudian buka di file ``` index.php ```, Lalu kita buat routing didalamnya dengan kode ini
+
+```
+<?php
+
+include 'views/header.php';
+
+$page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
+$parts = explode('/', $page);
+$module = $parts[0] ?? '';
+$file   = $parts[1] ?? '';
+$path = "modules/$module/$file.php";
+
+if ($module && $file && file_exists($path)) {
+    include $path;
+} else {
+    include 'views/dashboard.php'; 
+}
+
+include 'views/footer.php';
+?>
+```
+
+Nah, jika sudah kalian akses filenya melalui link ini
+``` http://localhost:8080/project/index.php?page=auth/list ```
+
+Maka tampilannya jadi seperti ini
+
+<img src="Lab9/Langkah 5.png" alt="Tutorial" width="400">
+
+Kalian bisa isi databasenya sesuai yang kalian inginkan di ``` database.php ```
+Lalu kalian sesuaikan di phpmyadmin dan bisa connect database baru ke project ini
+Jadi tampilannya seperti ini
+
+<img src="Lab9/Langkah 6.png" alt="Tutorial" width="400">
+
+Jadi seperti itu untuk melakukan Modularisasi Program menggunakan PHP
+Sekian terima kasih
